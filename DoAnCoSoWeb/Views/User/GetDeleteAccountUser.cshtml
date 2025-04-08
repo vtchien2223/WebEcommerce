@@ -1,0 +1,56 @@
+﻿@model DoAnCoSoWeb.Models.Account
+
+<h2>Xác nhận xóa tài khoản</h2>
+
+<p class="deletd_titile">Bạn có chắc chắn muốn xóa tài khoản sau</p>
+<table>
+    <thead>
+        <tr>
+            <th style="width: 20%;" class="table_titile">ẢNH ĐẠI DIỆN</th>
+            <th style="width: 20%;" class="table_titile">TÊN NGƯỜI DÙNG</th>
+            <th style="width: 20%;" class="table_titile">SỐ ĐIỆN THOẠI</th>
+            <th style="width: 20%;" class="table_titile">EMAIL</th>
+            <th style="width: 20%;" class="table_titile">ĐỊA CHỈ</th>
+            <th style="width: 20%;"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th>
+                <img src="~/image/@Model.AnhDaiDien" alt="Avatar" style="border-radius: 50%; width: 50px; height: 50px;" />
+            </th>
+            <th>@Model.Username</th>
+            <th>@Model.SoDienThoai</th>
+            <th>@Model.Email</th>
+            <th>@Model.DiaChi</th>
+            <th style="display: flex">
+                <form asp-action="DeleteAccountUser" method="post">
+                    <div class="deleted_action">
+                        <input type="hidden" name="id" value="@Model.Id" />
+                        <button type="submit" class="btn_the_a">Xóa</button>
+                        <a href="@Url.Action("AccountUser", "User")" class="btn_the_a">Hủy bỏ</a>
+                    </div>                   
+                </form>
+            </th>
+        </tr>
+    </tbody>
+</table>
+
+
+<style>
+    .deletd_titile {
+        color: red;
+    }
+
+    ul li {
+        list-style: none;
+    }
+
+    .deleted_action{
+        display: flex;
+    }
+
+    .btn_the_a:hover{
+        cursor: pointer;
+    }
+</style>

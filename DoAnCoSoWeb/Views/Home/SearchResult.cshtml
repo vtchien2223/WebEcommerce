@@ -1,0 +1,62 @@
+﻿@model DoAnCoSoWeb.ViewModels.HomeViewModels
+
+@{
+    ViewData["Title"] = "Search Result";
+}
+<p>Showing results for: @Model.Query</p>
+@if (Model.sanphams != null && Model.sanphams.Any())
+{
+    <div class="product">
+        <div class="grid_row">
+            @foreach (var item in Model.sanphams)
+            {
+                <div class="grid_column-2_4">
+                    <div class="product-item">
+                        <img width="100%" height="150px" src="~/image/@item.Image1" class="product-item_image">
+
+                        <h4 class="product-item_name">@item.TenSanPham</h4>
+
+                        <div class="product-item_price">
+                            <span class="product-item_price-old">@string.Format("{0:N0}", (float)item.Gia * 1.5) VNĐ</span>
+                            <span class="product-item_price-sale">@string.Format("{0:N0}", item.Gia) VNĐ</span>
+                        </div>
+
+                        <div class="product-item_action">
+                            <span class="product-item_love product-item_like">
+                                <i class="product-item_action-dislike fa-regular fa-heart"></i>
+                                <i class="product-item_action-like fa-solid fa-heart"></i>
+                            </span>
+
+                            <a href="#" class="btn-info detailButton" data-product-id="@item.Id"> <i class="btn-info-icon fa fa-rocket"></i> Chi tiết</a>
+                        </div>
+
+                        <div class="product-item_saleoff">
+                            <span class="product-item_sale-persents">10%</span>
+                            <span class="product-item_sale-lab">GIẢM</span>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+}
+else
+{
+    <p>No results found.</p>
+}
+
+<script>
+    // Lấy tất cả các nút "Chi tiết" và gán sự kiện click cho mỗi nút
+    var detailButtons = document.querySelectorAll(".detailButton");
+    detailButtons.forEach(function (button) {
+        button.addEventListener("click", function (event) {
+            event.preventDefault(); // Ngăn chặn hành vi mặc định của thẻ a
+
+            var productId = this.getAttribute("data-product-id"); // Lấy id của sản phẩm từ thuộc tính data
+
+            var detailUrl = "/san-pham/" + productId; // Tạo URL chi tiết sản phẩm
+
+            window.location.href = detailUrl; // Chuyển hướng đến trang chi tiết sản phẩm
+        });
+    });
+</script>

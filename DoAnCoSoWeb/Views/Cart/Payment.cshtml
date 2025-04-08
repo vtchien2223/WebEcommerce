@@ -1,0 +1,87 @@
+﻿@model DoAnCoSoWeb.ViewModels.CartViewModels
+
+<h2 class="GH_Name">Xem sản phẩm đã chọn</h2>
+
+@if (Model.selectedProducts != null && Model.selectedProducts.Any())
+{
+    <form method="post" action="/Cart/PaymentConfirmation">
+        @foreach (var productId in Model.selectedProducts)
+        {
+            <input type="hidden" name="selectedProducts" value="@productId" />
+        }
+        <table class="tables">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th style="width: 3000px">Tên sản phẩm</th>
+                    <th style="width: 30%;">Giá</th>
+                    <th style="width: 10%">Số lượng</th>
+                    <th style="width: 20%">Tổng cộng</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var productId in Model.selectedProducts)
+                {
+                    var product = Model.chiTietGioHangs.FirstOrDefault(item => item.SanphamId == productId);
+                    if (product != null)
+                    {
+                        <tr>
+                            <td>
+                                <img src="~/image/@product.SanPhams.Image1" width="100" />
+                            </td>
+                            <td style="text-align: center;">@product.SanPhams.TenSanPham</td>
+                            <td style="text-align: center;">@product.SanPhams.Gia.ToString("N0")</td>
+                            <td style="text-align: center;">@product.Quantity</td>
+                            <td style="text-align: center;">@((product.Quantity * product.SanPhams.Gia).ToString("N0"))</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+        <div class="btn_xntt">
+            <button type="submit" class="btn btn-primary">Xác nhận thanh toán</button>
+        </div>       
+    </form>
+}
+else
+{
+    <div>
+        <p>Không có sản phẩm nào được chọn.</p>
+    </div>
+}
+
+
+<style>
+    .tables {
+        width: 100%;
+        border-collapse: collapse; /* Ensure borders collapse properly */
+    }
+
+        .tables th, .tables td {
+            border: 1px solid #ddd; /* Border style */
+            padding: 8px; /* Padding inside cells */
+            text-align: center; /* Center align text */
+        }
+
+        .tables th {
+            background-color: #f2f2f2; /* Header background color */
+        }
+
+    .btn_xntt{
+        margin: 20px 0px;
+        display: flex;
+        justify-content: end;
+    }
+
+    .GH_Name {
+        font-size: 28px; /* Điều chỉnh kích thước font nếu cần */
+        font-weight: bold; /* Đảm bảo độ đậm của font */
+        color: #333; /* Màu chữ */
+        margin-bottom: 20px; /* Khoảng cách phía dưới tiêu đề */
+        text-align: center; /* Căn giữa nội dung */
+        text-transform: uppercase; /* Chuyển đổi chữ thành chữ in hoa */
+        border-bottom: 2px solid #ccc; /* Viền dưới dạng đường gạch ngang */
+        padding-bottom: 5px; /* Khoảng cách dưới đường gạch ngang */
+    }
+</style>
+                

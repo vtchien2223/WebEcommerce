@@ -1,0 +1,115 @@
+﻿@model IEnumerable<DoAnCoSoWeb.Models.Sanpham>
+
+@{
+    ViewData["Title"] = "Filter";
+}
+
+<div class="page-container">
+    <div class="filters">
+        <div class="filter_group" aria-expanded="false">
+            <div class="filter_group_block">
+                <div class="filter_group-subtitle">
+                    <span>Nhà cung cấp</span>
+                </div>
+                <div class="filter_group-content filter-brand">
+                    <ul class="checkbox-list">
+                        <li>
+                            <input type="checkbox" id="data-brand-p1" value="Khác" name="brand-filter" data-vendor="(vendor:product contains Khác)">
+                            <label for="data-brand-p1">Khác</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="data-brand-p2" value="Dell" name="brand-filter" data-vendor="(vendor:product contains Dell)">
+                            <label for="data-brand-p2">Dell</label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="filter_group" aria-expanded="false">
+            <div class="filter_group_block">
+                <div class="filter_group-subtitle">
+                    <span>Lọc giá</span>
+                </div>
+                <div class="filter_group-content filter-price">
+                    <ul class="checkbox-list">
+                        <li>
+                            <input type="checkbox" id="p1" name="cc" data-price="(price_variant:product < 5000000)">
+                            <label for="p1">
+                                <span>Dưới</span> 5.000.000₫
+                            </label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="p2" name="cc" data-price="(price_variant:product range 5000000_10000000)">
+                            <label for="p2">
+                                5.000.000₫ - 10.000.000₫
+                            </label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="p3" name="cc" data-price="(price_variant:product range 10000000_15000000)">
+                            <label for="p3">
+                                10.000.000₫ - 15.000.000₫
+                            </label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="p4" name="cc" data-price="((price_variant:product range 15000000_20000000)">
+                            <label for="p4">
+                                15.000.000₫ - 20.000.000₫
+                            </label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="p5" name="cc" data-price="(price_variant:product > 20000000)">
+                            <label for="p5">
+                                <span>Trên</span> 20.000.000₫
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-fliter">
+        <div class="collection-heading__content">
+            <div class="dFlex-row">
+                <div class="heading-box">
+                    <h1 class="title">
+                        <a asp-action="FilterByLoaiId" asp-route-loaiId="1">
+                            PC - Máy tính chơi game, Làm việc
+                        </a>
+                    </h1>
+                    <div class="filter-box">
+                        <span class="title-count"><b>@Model.Count()</b> sản phẩm</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Nội dung sản phẩm sẽ nằm ở đây -->
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Description</th>
+                    <th>Image</th>
+                    <th>Category</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.TenSanPham</td>
+                        <td>@item.Gia.ToString("C")</td>
+                        <td>@item.Mota</td>
+                        <td>
+                            @if (!string.IsNullOrEmpty(item.ImageUrl))
+                            {
+                                <img src="@item.ImageUrl" alt="@item.TenSanPham" style="max-width: 100px;" />
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+﻿@model DoAnCoSoWeb.ViewModels.HomeViewModels
+
+<div class="product-list">
+    @foreach (var product in Model.sanphams)
+    {
+        <div class="product-item">
+            <img src="@product.ImageUrl" alt="@product.TenSanPham" class="product-image" />
+            <h3 class="product-title">@product.TenSanPham</h3>
+            <p class="product-price">Giá: @product.Gia</p>
+        </div>
+    }
+</div>
+

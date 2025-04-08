@@ -1,0 +1,422 @@
+﻿ @model DoAnCoSoWeb.ViewModels.HomeViewModels
+<div class="section-main section-main--index">
+	<div class="container">
+		<div class="roww">
+			<div class="col-lg-cus">
+				<div class="main-menu mainMenujs setHeight">	</div>
+			</div>
+			<div class="col-lg block-slider">
+				<div class="roww">
+					<div class="col-lg-8 col-md-12 col-12  p-0 left-slider" id="left-slider">
+						<div class="home-slider" id="home-slider">
+							<div class="slider-owl owl-carousel owl-loaded owl-drag">
+								<div class="owl-stage-outer">
+									<div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 747px;">
+										<div class="owl-item active" style="width: 746.662px;">
+											<div class="slider-item">
+												<div class="slide--image">
+													<a href="" title="">
+														<picture>
+															<img src="//theme.hstatic.net/1000288298/1001020793/14/slide_1_img.jpg?v=434" width="690px" height="310px" alt="" style="border-radius: 10px;">
+														</picture>
+													</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-12 col-12 right-banner">
+						<div id="group-banner-right">
+							<div class="box-banner effect-shine">
+								<a href="#" aria-label="màn hình gaming">
+									<picture>
+										<img data-src="//theme.hstatic.net/1000288298/1001020793/14/banner_top_1_img_large.jpg?v=434" width="320px" height="100px" src="//theme.hstatic.net/1000288298/1001020793/14/banner_top_1_img_large.jpg?v=434" style="border-radius: 10px;">
+									</picture>
+								</a>
+							</div>
+							<div class="box-banner effect-shine">
+								<a href="#" aria-label="phụ kiện anker">
+									<picture>
+										<img data-src="//theme.hstatic.net/1000288298/1001020793/14/banner_top_2_img_large.jpg?v=434" width="320px" height="100px" src="//theme.hstatic.net/1000288298/1001020793/14/banner_top_2_img_large.jpg?v=434" style="border-radius: 10px;">
+									</picture>
+								</a>
+							</div>
+							<div class="box-banner effect-shine">
+								<a href="#" aria-label="card màn hình">
+									<picture>
+										<img data-src="//theme.hstatic.net/1000288298/1001020793/14/banner_top_3_img_large.jpg?v=434" width="320px" height="100px" src="//theme.hstatic.net/1000288298/1001020793/14/banner_top_3_img_large.jpg?v=434" style="border-radius: 10px;">
+									</picture>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<main class="wrapperMain_content">
+	<section class="home-category">
+		<div class="container">
+			<div class="list-item">
+				<div class="category-item col-lg col-md-6 col-6">
+					<div class="category-item--inner">
+						<div class="category-item--image">
+							<a href="#" aria-label="">
+								<img width="290px" height="140px" data-src="//theme.hstatic.net/1000288298/1001020793/14/categorybanner_1_img.jpg?v=434" src="//theme.hstatic.net/1000288298/1001020793/14/categorybanner_1_img.jpg?v=434" style="border-radius: 10px; margin-left: 20px;">
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="category-item col-lg col-md-6 col-6">
+					<div class="category-item--inner">
+						<div class="category-item--image">
+							<a href="#" aria-label="">
+								<img width="310px" height="140px" data-src="//theme.hstatic.net/1000288298/1001020793/14/categorybanner_2_img.jpg?v=434" src="//theme.hstatic.net/1000288298/1001020793/14/categorybanner_2_img.jpg?v=434" style="border-radius: 10px;">
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="category-item col-lg col-md-6 col-6">
+					<div class="category-item--inner">
+						<div class="category-item--image">
+							<a href="#" aria-label="">
+								<img width="320px" height="140px" data-src="//theme.hstatic.net/1000288298/1001020793/14/categorybanner_3_img.jpg?v=434" src="//theme.hstatic.net/1000288298/1001020793/14/categorybanner_3_img.jpg?v=434" style="border-radius: 10px;">
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="category-item col-lg col-md-6 col-6">
+					<div class="category-item--inner">
+						<div class="category-item--image">
+							<a href="#" aria-label="">
+								<img width="320px" height="140px" data-src="//theme.hstatic.net/1000288298/1001020793/14/categorybanner_4_img.jpg?v=434" src="//theme.hstatic.net/1000288298/1001020793/14/categorybanner_4_img.jpg?v=434" style="border-radius: 10px;">
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="KM-home">
+		<div class="container-KM-home">
+			<div class="content-KM-home">
+				<div class="box-listproduct">
+					<div class="section-header-KM-home">
+						<h2 class="HTitle-KM-home">
+							<a style="color:white"> 🔥 KHUYẾN MẠI HOT NHẤT 🔥</a>
+						</h2>
+					</div>
+					<div class="ListPro-KM-home">
+						<div class="grid_row">
+							@foreach (var item in Model.SaleProducts)
+							{
+								<div class="grid_column-2_4">
+									<div class="product-item">
+										<img width="100%" height="150px" src="~/image/@item.Image1" class="product-item_image">
+
+										<h4 class="product-item_name">@item.TenSanPham</h4>
+
+										<div class="product-item_price">
+											<span class="product-item_price-old">@string.Format("{0:N0}", (float)item.Gia * 1.5) VNĐ</span>
+											<span class="product-item_price-sale">@string.Format("{0:N0}", item.Gia) VNĐ</span>
+										</div>
+
+										<div class="product-item_action">
+											<a href="san-pham/@item.Id" class="btn-info">
+												<i class="btn-info-icon fa fa-rocket"></i> Chi tiết
+											</a>
+										</div>
+
+										<div class="product-item_sl"><span class="product-item_sl-name">Đã bán @Model.soldQuantities.GetValueOrDefault(item.Id, 0)</span></div>
+
+										<div class="product-item_saleoff">
+											<span class="product-item_sale-persents">10%</span>
+											<span class="product-item_sale-lab">GIẢM</span>
+										</div>
+									</div>
+								</div>
+							}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="best-seller-home">
+		<div class="container-bestseller">
+			<div class="content-bestsell">
+				<div class="box-listproduct">
+					<div class="section-header-bestsell">
+						<div class="Home-product">
+							<h2 class="HTitle-KM-home">
+								<a style="color:white"> ⚡️ BÁN CHẠY NHẤT ⚡️</a>
+							</h2>
+						</div>
+					</div>
+				</div>
+				<div class="list-product-row">
+					<div class="owl-stage-bestseller">
+						@foreach (var item in Model.SaleProducts.Where(s => Model.soldQuantities.GetValueOrDefault(s.Id, 0) > 10))
+						{
+							<div class="grid_column-2_4">
+								<div class="product-item">
+									<img width="100%" height="150px" src="~/image/@item.Image1" class="product-item_image">
+									<h4 class="product-item_name">@item.TenSanPham</h4>
+									<div class="product-item_price">
+										<span class="product-item_price-old">@string.Format("{0:N0}", (float)item.Gia * 1.5) VNĐ</span>
+										<span class="product-item_price-sale">@string.Format("{0:N0}", item.Gia) VNĐ</span>
+									</div>
+									<div class="product-item_action">
+										<a href="san-pham/@item.Id" class="btn-info">
+											<i class="btn-info-icon fa fa-rocket"></i> Chi tiết
+										</a>
+									</div>
+									<div class="product-item_sl">
+										<span class="product-item_sl-name">Đã bán @Model.soldQuantities.GetValueOrDefault(item.Id, 0)</span>
+									</div>
+									<div class="product-item_saleoff">
+										<span class="product-item_sale-persents">10%</span>
+										<span class="product-item_sale-lab">GIẢM</span>
+									</div>
+								</div>
+							</div>
+						}
+					</div>					
+				</div>
+			</div>
+		</div>
+		</div>
+	</section>
+	<section class="best-seller-home">
+		<div class="container-bestseller">
+			<div class="content-bestsell">
+				<div class="box-listproduct">
+					<div class="section-header-bestsell">
+
+						<div class="Home-product">
+							<h2 class="HTitle-KM-home">
+								<a style="color:white"> LAPTOP</a>
+							</h2>
+						</div>
+
+						<div class="product">
+							<div class="grid_row">
+								@foreach (var item in Model.LaptopProducts)
+								{
+									<div class="grid_column-2_4">
+										<div class="product-item">
+											<img width="100%" height="150px" src="~/image/@item.Image1" class="product-item_image">
+
+											<h4 class="product-item_name">@item.TenSanPham</h4>
+
+											<div class="product-item_price">
+												<span class="product-item_price-old">@string.Format("{0:N0}", (float)item.Gia * 1.5) VNĐ</span>
+												<span class="product-item_price-sale">@string.Format("{0:N0}", item.Gia) VNĐ</span>
+											</div>
+
+											<div class="product-item_action">
+												<a href="san-pham/@item.Id" class="btn-info">
+													<i class="btn-info-icon fa fa-rocket"></i> Chi tiết
+												</a>
+											</div>
+											<div class="product-item_sl"><span class="product-item_sl-name">Đã bán @Model.soldQuantities.GetValueOrDefault(item.Id, 0)</span></div>
+											<div class="product-item_saleoff">
+												<span class="product-item_sale-persents">10%</span>
+												<span class="product-item_sale-lab">GIẢM</span>
+											</div>
+										</div>
+									</div>
+								}
+							</div>
+							<div>
+								<a href="@Url.Action("PcProduct", "Home", new { type = "pc" })" class="btn-xemthem"><span class="xemthem_name">Xem thêm</span></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="best-seller-home">
+		<div class="container-bestseller">
+			<div class="content-bestsell">
+				<div class="box-listproduct">
+					<div class="section-header-bestsell">
+						
+						<div class="Home-product">
+							<h2 class="HTitle-KM-home">
+								<a style="color:white">RAM</a>
+							</h2>
+						</div>
+
+						<div class="product">
+							<div class="grid_row">
+								@foreach (var item in Model.PCProducts)
+								{
+									<div class="grid_column-2_4">
+										<div class="product-item">
+											<img width="100%" height="150px" src="~/image/@item.Image1" class="product-item_image">
+
+											<h4 class="product-item_name">@item.TenSanPham</h4>
+
+											<div class="product-item_price">
+												<span class="product-item_price-old">@string.Format("{0:N0}", (float)item.Gia * 1.5) VNĐ</span>
+												<span class="product-item_price-sale">@string.Format("{0:N0}", item.Gia) VNĐ</span>
+											</div>
+
+											<div class="product-item_action">
+												<a href="san-pham/@item.Id" class="btn-info">
+													<i class="btn-info-icon fa fa-rocket"></i> Chi tiết
+												</a>
+											</div>
+											<div class="product-item_sl"><span class="product-item_sl-name">Đã bán @Model.soldQuantities.GetValueOrDefault(item.Id, 0)</span></div>
+											<div class="product-item_saleoff">
+												<span class="product-item_sale-persents">10%</span>
+												<span class="product-item_sale-lab">GIẢM</span>
+											</div>
+										</div>
+									</div>
+								}
+							</div>
+							<div>
+								<a href="@Url.Action("RamProduct", "Home", new { type = "ram" })" class="btn-xemthem"><span class="xemthem_name">Xem thêm</span></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="best-seller-home">
+		<div class="container-bestseller">
+			<div class="content-bestsell">
+				<div class="box-listproduct">
+					<div class="section-header-bestsell">
+						
+						<div class="Home-product">
+							<h2 class="HTitle-KM-home">
+								<a style="color:white"> PC</a>
+							</h2>
+						</div>
+
+						<div class="product">
+							<div class="grid_row">
+								@foreach (var item in Model.LinhKienProducts)
+								{
+									<div class="grid_column-2_4">
+										<div class="product-item">
+											<img width="100%" height="150px" src="~/image/@item.Image1" class="product-item_image">
+
+											<h4 class="product-item_name">@item.TenSanPham</h4>
+
+											<div class="product-item_price">
+												<span class="product-item_price-old">@string.Format("{0:N0}", (float)item.Gia * 1.5) VNĐ</span>
+												<span class="product-item_price-sale">@string.Format("{0:N0}", item.Gia) VNĐ</span>
+											</div>
+
+											<div class="product-item_action">
+												<a href="san-pham/@item.Id" class="btn-info" >
+													<i class="btn-info-icon fa fa-rocket"></i> Chi tiết
+												</a>
+											</div>
+											<div class="product-item_sl"><span class="product-item_sl-name">Đã bán @Model.soldQuantities.GetValueOrDefault(item.Id, 0)</span></div>
+											<div class="product-item_saleoff">
+												<span class="product-item_sale-persents">10%</span>
+												<span class="product-item_sale-lab">GIẢM</span>
+											</div>
+										</div>
+									</div>
+								}
+							</div>
+							<div>
+								<a href="@Url.Action("LaptopProduct", "Home", new { type = "laptop" })" class="btn-xemthem"><span class="xemthem_name">Xem thêm</span></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="best-seller-home">
+		<div class="container-bestseller">
+			<div class="content-bestsell">
+				<div class="box-listproduct">
+					<div class="section-header-bestsell">
+						
+						<div class="Home-product">
+							<h2 class="HTitle-KM-home">
+								<a style="color:white">LINH KIỆN</a>
+							</h2>
+						</div>
+
+						<div class="product">
+							<div class="grid_row">
+								@foreach (var item in Model.GearProducts)
+								{
+									<div class="grid_column-2_4">
+										<div class="product-item">
+											<img width="100%" height="150px" src="~/image/@item.Image1" class="product-item_image">
+
+											<h4 class="product-item_name">@item.TenSanPham</h4>
+
+											<div class="product-item_price">
+												<span class="product-item_price-old">@string.Format("{0:N0}", (float)item.Gia * 1.5) VNĐ</span>
+												<span class="product-item_price-sale">@string.Format("{0:N0}", item.Gia) VNĐ</span>
+											</div>
+
+											<div class="product-item_action">
+												<a href="san-pham/@item.Id" class="btn-info">
+													<i class="btn-info-icon fa fa-rocket"></i> Chi tiết
+												</a>
+											</div>
+											<div class="product-item_sl"><span class="product-item_sl-name">Đã bán @Model.soldQuantities.GetValueOrDefault(item.Id, 0)</span></div>
+											<div class="product-item_saleoff">
+												<span class="product-item_sale-persents">10%</span>
+												<span class="product-item_sale-lab">GIẢM</span>
+											</div>
+										</div>
+									</div>
+								}
+							</div>
+							<div>
+								<a href="@Url.Action("LinhKiemProduct", "Home", new { type = "linhkien" })" class="btn-xemthem"><span class="xemthem_name">Xem thêm</span></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</main>
+
+<script>
+	function sortPrice(sortOrder) {
+		var url = '@Url.Action("Index", "Home")';
+		var params = new URLSearchParams(window.location.search);
+		params.set('sortOrder', sortOrder);
+		url += '?' + params.toString();
+		window.location.href = url;
+	}
+</script>
+
+<script>
+	function updateMinPrice(value) {
+		document.getElementById('minPriceValue').innerText = parseInt(value).toLocaleString('vi-VN') + ' VNĐ';
+	}
+
+	function updateMaxPrice(value) {
+		document.getElementById('maxPriceValue').innerText = parseInt(value).toLocaleString('vi-VN') + ' VNĐ';
+	}
+
+	// Initialize the displayed values
+	document.addEventListener("DOMContentLoaded", function () {
+		updateMinPrice(document.getElementById('minPrice').value);
+		updateMaxPrice(document.getElementById('maxPrice').value);
+	});
+</script>

@@ -1,0 +1,78 @@
+﻿@model DoAnCoSoWeb.ViewModels.UserViewModels
+<h1>Thông tin tài khoản</h1>
+
+<div class="register_user">
+    <div class="register_user-header">
+        <form class="form form-horizontal" asp-action="Register" asp-controller="User" method="POST">
+            <div class="auth-frm__group">
+                <input type="text" class="auth-frm__in" asp-for="Register.Username" placeholder="Tên đăng nhập">
+            </div>
+
+            <div class="auth-frm__group">
+                <input type="password" class="auth-frm__in" asp-for="Register.MatKhau" placeholder="Mật khẩu" required
+                       pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                       title="Mật khẩu phải có ít nhất 8 ký tự, bao gồm ít nhất một chữ số, một chữ thường và một chữ hoa." />
+                <span asp-validation-for="Register.MatKhau" class="text-danger"></span>
+            </div>
+
+            <div class="auth-frm__group">
+                <input type="password" class="auth-frm__in" name="Register.ConfirmPassword" placeholder="Xác nhận mật khẩu" required
+                       pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                       title="Mật khẩu phải có ít nhất 8 ký tự, bao gồm ít nhất một chữ số, một chữ thường và một chữ hoa."
+                       oninput="checkPasswordMatch(this);" />
+                <div id="passwordMatchMessage"></div>
+            </div>
+
+            <div class="auth-frm__control">
+                <button type="submit" class="btn btn--primary">Đăng ký</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        function checkPasswordMatch(input) {
+            var passwordInput = document.getElementById('password');
+            var confirmPasswordInput = input;
+            if (passwordInput.value !== confirmPasswordInput.value) {
+                confirmPasswordInput.setCustomValidity('Mật khẩu không khớp');
+            } else {
+                confirmPasswordInput.setCustomValidity('');
+            }
+        }
+    </script>
+}
+
+<table>
+    <thead>
+        <tr>
+            <th style="width: 20%;" class="table_titile">ẢNH ĐẠI DIỆN</th>
+            <th style="width: 20%;" class="table_titile">TÊN NGƯỜI DÙNG</th>
+            <th style="width: 20%;" class="table_titile">SỐ ĐIỆN THOẠI</th>
+            <th style="width: 20%;" class="table_titile">EMAIL</th>
+            <th style="width: 20%;" class="table_titile">ĐỊA CHỈ</th>
+            <th style="width: 10%;"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.accounts)
+        {
+            <tr>
+                <th>
+                    <img src="~/image/@item.AnhDaiDien" alt="Avatar" style="border-radius: 50%; width: 50px; height: 50px;" />
+                </th>
+                <th>@item.Username</th>
+                <th>@item.SoDienThoai</th>
+                <th>@item.Email</th>
+                <th>@item.DiaChi</th>
+                <th style="display: flex">
+                    <a style="background-color: lightskyblue; border-color: lightblue" href="doi-mat-khau-user" class="btn_the_a">Edit</a>
+                    <a style="background-color: red; border-color: red" asp-action="GetDeleteAccountUser" asp-route-id="@item.Id" class="btn_the_a">Deleted</a>
+                </th>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a href="tao-tai-khoan-user">TẠO TÀI KHOẢN</a>

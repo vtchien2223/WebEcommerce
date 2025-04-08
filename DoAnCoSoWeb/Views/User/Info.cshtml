@@ -1,0 +1,63 @@
+﻿@model DoAnCoSoWeb.Models.Account
+
+<div class="info_list">
+    <div class="info_item">
+        <form class="form form-horizontal">
+            <div class="info_avatar">
+                <h1 class="info_title">THÔNG TIN TÀI KHOẢN</h1>
+                <img class="img_avatar" src="~/image/@Model.AnhDaiDien" />
+            </div>
+            <div class="form-group">
+                <label class="col-md-3">Tên đăng nhập: </label>
+                <div class="col-md-9">
+                    <input type="text" class="form-control" value="@Model.Username" readonly />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3">Mật khẩu: </label>
+                <div class="col-md-9">
+                    <input type="password" class="form-control" value="@Model.MatKhau" readonly />
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="col-md-3">Email: </label>
+                <div class="col-md-9">
+                    <input type="text" class="form-control" value="@Model.Email" readonly />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-3">Số điện thoại: </label>
+                <div class="col-md-9">
+                    <input type="text" class="form-control" value="@Model.SoDienThoai" readonly />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-3">Dịa chỉ: </label>
+                <div class="col-md-9">
+                    <input type="text" class="form-control" value="@Model.DiaChi" readonly />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-3">Loại tài khoản: </label>
+                <div class="col-md-9">
+                    <input type="text" class="form-control" value="@Model.Rank?.TenRank" readonly />
+                </div>
+            </div>
+        </form>
+        <div class="button_info">
+            @if (Model.Rank?.Id == 1)
+            {
+                <a class="btn-item" href="quan-ly-account-user"><span class="name_btn">Quản lý tài khoản người dùng</span></a>
+                <a href="/danh-sach-san-pham" target="_blank" class="btn-item">Admin</a>
+            }
+            <a class="btn-item" href="list-pay-pro"><span class="name_btn">Đơn hàng</span></a>
+            <a class="btn-item" href="cap-nhat-thong-tin"><span class="name_btn">Sửa thông tin</span></a>
+            <a class="btn-item" href="doi-mat-khau"><span class="name_btn">Đổi mật khẩu</span></a>
+        </div>
+        
+    </div>
+</div>

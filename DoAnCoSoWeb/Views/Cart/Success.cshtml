@@ -1,0 +1,103 @@
+﻿@model DoAnCoSoWeb.ViewModels.CartViewModels
+
+@* <div class="alert alert-success">
+    Bạn vừa mua hàng thành công! Chúng tôi sẽ gọi điện để xác nhận đơn hàng. Chúng tôi xin chân thành cảm ơn!
+</div> *@
+
+<div class="alert-container">
+    <div class="alert alert-success">
+        <div class="alert-icon">
+            <i class="fas fa-thumbs-up"></i>
+        </div>
+        <div class="alert-content">
+            <span>Bạn vừa mua hàng thành công!</span>Chúng tôi sẽ gọi điện để xác nhận đơn hàng. Chúng tôi xin chân thành cảm ơn!
+        </div>
+    </div>
+</div>
+
+@* <style>
+    /* Định dạng chung cho alert */
+    .alert {
+        padding: 20px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        position: relative;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        font-size: 16px;
+        text-align: center;
+    }
+
+    /* Định dạng riêng cho alert-success */
+    .alert-success {
+        background-color: #dff0d8; /* Màu nền xanh nhạt */
+        border-color: #d6e9c6; /* Màu viền xanh nhạt */
+        color: #3c763d; /* Màu chữ xanh đậm */
+    }
+
+        /* Icon thành công */
+        .alert-success::before {
+            content: "\2714"; /* Biểu tượng dấu tích */
+            font-size: 20px;
+            color: #3c763d;
+            font-weight: bold;
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+    /* Định dạng chữ */
+    .alert span {
+        font-weight: bold;
+    }
+
+</style> *@
+<style>
+    /* Định dạng chung cho container để căn giữa */
+    .alert-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh; /* Chiều cao của viewport */
+        padding: 20px; /* Khoảng cách bên trong */
+        background-color: #f8f8f8; /* Màu nền cho toàn trang */
+    }
+
+    /* Định dạng chung cho alert */
+    .alert {
+        padding: 20px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        position: relative;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        font-size: 16px;
+        text-align: center;
+        max-width: 700px; /* Chiều rộng tối đa cho alert */
+        width: 100%; /* Chiều rộng 100% của container cha */
+    }
+
+    /* Định dạng riêng cho alert-success */
+    .alert-success {
+        background-color: #dff0d8; /* Màu nền xanh nhạt */
+        border-color: #d6e9c6; /* Màu viền xanh nhạt */
+        color: #3c763d; /* Màu chữ xanh đậm */
+    }
+
+    /* Icon cảm ơn */
+    .alert-icon {
+        font-size: 50px;
+        color: #3c763d;
+        margin-bottom: 10px;
+    }
+
+    /* Định dạng chữ */
+    .alert-content span {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 5px;
+    }
+</style>

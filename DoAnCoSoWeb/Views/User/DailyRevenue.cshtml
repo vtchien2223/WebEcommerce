@@ -1,0 +1,137 @@
+﻿@model DoAnCoSoWeb.ViewModels.UserViewModels
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - DoAnCoSoWeb</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/fonts/fontawesome-free-6.5.2-web/css/all.css" />
+    <link rel="stylesheet" href="~/DoAnCoSoWeb.styles.css" asp-append-version="true" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            $('.list-item > a').click(function (e) {
+                e.preventDefault();
+                $(this).next('ul').slideToggle();
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container-admin">
+        <main class="Admin-home">
+            <nav class="menu-admin-home" id="admin">
+                <div class="title-menu-admin">
+                    <h1 class="title-admin">Quản Lý</h1>
+                </div>
+                <ul class="list">
+                    <li class="list-item">
+                        <a class="a-admin" href="#" title="Quản lý sản phẩm">
+                            Quản lý sản phẩm
+                        </a>
+                        <ul>
+                            <li><a class="mini-item" href="danh-sach-san-pham">Danh Sách Sản Phẩm</a></li>
+                            <li><a class="mini-item" href="them-san-pham">Thêm Sản Phẩm Mới</a></li>
+                        </ul>
+                    </li>
+                    <li class="list-item">
+                        <a class="a-admin" href="#" title="Quản lý đơn hàng">
+                            Quản lý đơn hàng
+                        </a>
+                    </li>
+                    <li class="list-item">
+                        <a class="a-admin" href="#" title="Quản lý danh mục">
+                            Quản lý danh mục
+                        </a>
+                        <ul>
+                            <li><a class="mini-item" href="danh-sach-loai-san-pham">Danh Sách Danh Mục</a></li>
+                            <li><a class="mini-item" href="them-loai-san-pham">Thêm Danh Mục Mới</a></li>
+                        </ul>
+                    </li>
+                    <li class="list-item">
+                        <a class="a-admin" href="#" title="Quản lý doanh thu">
+                            Quản lý doanh thu
+                        </a>
+                        <ul>
+                            <li><a href="@Url.Action("MonthlyRevenue", "User", new { type = "ram" })" class="category-items-link">Doanh Thu Tháng</a></li>
+                            <li><a href="@Url.Action("YearRevenue", "User", new { type = "ram" })" class="category-items-link">Doanh Thu Năm</a></li>
+                        </ul>
+                    </li>
+                    <li class="list-item">
+                        <a class="a-admin" href="#" title="Quản lý email liên hệ">
+                            Quản lý email liên hệ
+                        </a>
+                        <ul>
+                            <li><a class="mini-item" href="thongtin-lienhe">Doanh Thu Năm</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </main>
+        <div class="container-pagebody">
+            <div class="content-pagebody">
+                <div class="page-header">
+                    <h3 class="page-title">Thống kê doanh thu theo ngày</h3>
+                </div>
+
+                <!-- Daily Revenue Chart -->
+                <div style="width:75%; margin-top: 50px;">
+                    <h2>Doanh thu hàng ngày (30 ngày qua)</h2>
+                    <canvas id="dailyRevenueChart"></canvas>
+                </div>
+
+                <script>
+                    // Daily Revenue Chart
+                    var dailyCtx = document.getElementById('dailyRevenueChart').getContext('2d');
+                    var dailyChartData = @Html.Raw(Json.Serialize(Model.DateRevenues));
+
+                    var dailyLabels = dailyChartData.map(function (item) {
+                        var date = new Date(item.date);
+                        return date.toLocaleDateString('vi-VN'); // 'vi-VN' for Vietnamese locale
+                    });
+                    var dailyRevenues = dailyChartData.map(function (item) {
+                        return item.revenue;
+                    });
+
+                    var dailyChart = new Chart(dailyCtx, {
+                        type: 'line',
+                        data: {
+                            labels: dailyLabels,
+                            datasets: [{
+                                label: 'Doanh thu',
+                                data: dailyRevenues,
+                                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                borderColor: 'rgba(75, 192, 192, 1)',
+                                borderWidth: 1,
+                                fill: true
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                </script>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

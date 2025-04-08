@@ -1,0 +1,172 @@
+﻿@model DoAnCoSoWeb.ViewModels.CartViewModels
+
+<h2 class="GH_Name">Giỏ hàng của bạn</h2>
+
+@if (Model.chiTietGioHangs.Count > 0)
+{
+    <div class="button">
+        <button id="btnContinue" class="btn btn-primary abc">Tiếp tục mua hàng</button>
+        <button id="btnDeleteAll" class="btn btn-primary abc">Xoá giỏ hàng</button>
+        <button id="btnPayment" class="btn btn-success abc">Thanh toán</button>
+    </div>    
+    <form id="frmPayment" method="post" action="/Cart/Payment">
+        <table class="tables">
+            <thead>
+                <tr class="table_tr">
+                    <th></th>
+                    <th></th>
+                    <th>Tên sản phẩm</th>
+                    <th>Giá</th>
+                    <th>Số lượng</th>
+                    <th>Tổng cộng</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.chiTietGioHangs)
+                {
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="selectedProducts" value="@item.SanPhams.Id" />
+                        </td>
+                        <td>
+                            <img src="~/image/@item.SanPhams.Image1" width="100" />
+                        </td>
+                        <td>@item.SanPhams.TenSanPham</td>
+                        <td><span style="margin: 0px 20px;">@item.SanPhams.Gia.ToString("N0")</span></td>
+                        <td>
+                            <div class="btn_slt">
+                                <button style="margin-right: 10px;" class="minus-btn" data-id="@item.SanPhams.Id">-</button>
+                                @item.Quantity
+                                <button style="margin: 0px 10px;" class="plus-btn" data-id="@item.SanPhams.Id">+</button>
+                            </div>                       
+                        </td>
+                        <td>@((item.Quantity * item.SanPhams.Gia).ToString("N0"))</td>
+                        <td style="margin-left: 20px;">
+                            <a style="margin-left: 20px;" href="#" data-id="@item.SanPhams.Id" class="btn btns-delete">Xoá</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </form>
+}
+else
+{
+    <div style="margin-top:10px;margin-bottom:10px;margin-left:auto; margin-right:auto">
+        <img width="100%" height="100%" src="~/image/empty-cart-1.png" />
+        <span style="margin-left: 36%; color: red; font-weight: 500px;" class="alert alert-danger">Bạn chưa có sản phẩm nào trong giỏ hàng</span>
+    </div>
+}
+
+<style>
+    .tables {
+        width: 100%;
+        border-collapse: collapse; /* Ensure borders collapse properly */
+        margin-top: 20px; /* Optional: Adjust margin as needed */
+        margin-bottom: 20px;
+    }
+
+        .tables th, .tables td {
+            border: 1px solid #ddd; /* Border style */
+            padding: 8px; /* Padding inside cells */
+            text-align: center; /* Center align text */
+        }
+
+        .tables th {
+            background-color: #f2f2f2; /* Header background color */
+        }
+
+        .tables img {
+            display: block; /* Ensure images display correctly */
+            margin: auto; /* Center align images */
+            max-width: 100%; /* Limit image width to container */
+            height: auto; /* Maintain aspect ratio */
+        }
+
+    .btns-delete {
+        display: inline-block;
+        padding: 6px 12px;
+        margin-bottom: 0;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1.42857143;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        cursor: pointer;
+        background-image: none;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        color: #fff;
+        background-color: #d9534f;
+        border-color: #d43f3a;
+    }
+
+    .button{
+        display: flex;
+        justify-content:  end;
+    }
+
+    .GH_Name {
+        font-size: 28px; /* Điều chỉnh kích thước font nếu cần */
+        font-weight: bold; /* Đảm bảo độ đậm của font */
+        color: #333; /* Màu chữ */
+        margin-bottom: 20px; /* Khoảng cách phía dưới tiêu đề */
+        text-align: center; /* Căn giữa nội dung */
+        text-transform: uppercase; /* Chuyển đổi chữ thành chữ in hoa */
+        border-bottom: 2px solid #ccc; /* Viền dưới dạng đường gạch ngang */
+        padding-bottom: 5px; /* Khoảng cách dưới đường gạch ngang */
+    }
+
+    .abc{
+        margin-left: 10px;
+    }
+
+    .btn_slt{
+        display: flex;
+    }
+</style>
+
+@section scripts {
+    <script src="~/js/cart.js"></script>
+    <script>
+        $('#btnPayment').click(function () {
+            $('#frmPayment').submit();
+        });
+    </script>
+}
+
+
+
+<script>
+    $(document).ready(function () {
+        $('.plus-btn, .minus-btn').on('click', function () {
+            var id = $(this).data('id');
+            var quantityChange = $(this).hasClass('plus-btn') ? 1 : -1;
+
+            // Gọi phương thức Update trên server để cập nhật số lượng sản phẩm
+            $.ajax({
+                url: '/Cart/Update',
+                method: 'POST',
+                data: { id: id, quantity: quantityChange },
+                success: function (response) {
+                    if (response.status) {
+                        // Cập nhật số lượng và tổng giá tiền trên trang web
+                        var row = $('button[data-id="' + id + '"]').closest('tr');
+                        var price = parseFloat(row.find('.price').text().replace(',', ''));
+                        var quantity = parseInt(row.find('.quantity').text()) + quantityChange;
+                        var total = price * quantity;
+
+                        row.find('.quantity').text(quantity);
+                        row.find('.total').text(total.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'));
+
+                        // Tải lại trang để cập nhật các thay đổi
+                        location.reload();
+                    }
+                }
+            });
+        });
+    });
+</script>
+

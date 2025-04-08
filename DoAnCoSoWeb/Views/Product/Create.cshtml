@@ -1,0 +1,169 @@
+﻿@model DoAnCoSoWeb.Models.Sanpham
+@{
+	ViewData["Title"] = "Danh Sách Sản Phẩm";
+	Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"] - DoAnCoSoWeb</title>
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/fonts/fontawesome-free-6.5.2-web/css/all.css" />
+	<link rel="stylesheet" href="~/DoAnCoSoWeb.styles.css" asp-append-version="true" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			background-color: #f8f9fa;
+		}
+	</style>
+	<script>
+		$(document).ready(function () {
+			$('.list-item > a').click(function (e) {
+				e.preventDefault();
+				$(this).next('ul').slideToggle();
+			});
+		});
+	</script>
+</head>
+
+<body>
+	<div class="container-admin">
+		<main class="Admin-home">
+			<nav class="menu-admin-home" id="admin">
+				<div class="title-menu-admin">
+					<h1 class="title-admin">Quản Lý</h1>
+				</div>
+				<ul class="list">
+					<li class="list-item">
+						<a class="a-admin" href="#" title="Quản lý sản phẩm">
+							Quản lý sản phẩm
+						</a>
+						<ul>
+							<li><a class="mini-item" href="danh-sach-san-pham">Danh Sách Sản Phẩm</a></li>
+							<li><a class="mini-item" href="them-san-pham">Thêm Sản Phẩm Mới</a></li>
+						</ul>
+					</li>
+					<li class="list-item">
+						<a class="a-admin" href="#" title="Quản lý đơn hàng">
+							Quản lý đơn hàng
+						</a>
+					</li>
+					<li class="list-item">
+						<a class="a-admin" href="#" title="Quản lý danh mục">
+							Quản lý danh mục
+						</a>
+						<ul>
+							<li><a class="mini-item" href="danh-sach-loai-san-pham">Danh Sách Danh Mục</a></li>
+							<li><a class="mini-item" href="#">Thêm Danh Mục Mới</a></li>
+						</ul>
+					</li>
+					<li class="list-item">
+						<a class="a-admin" href="#" title="Quản lý doanh thu">
+							Quản lý doanh thu
+						</a>
+						<ul>
+							<li><a class="mini-item" href="#">Doanh Thu Tháng</a></li>
+							<li><a class="mini-item" href="#">Doanh Thu Năm</a></li>
+						</ul>
+					</li>
+					<li class="list-item">
+						<a class="a-admin" href="#" title="Quản lý email liên hệ">
+							Quản lý email liên hệ
+						</a>
+					</li>
+				</ul>
+			</nav>
+		</main>
+		<div class="container-pagebody">
+			<div class="content-pagebody">
+				<div class="page-header">
+					<h3 class="page-title">Trang Quản Trị</h3>
+				</div>
+				<form class="form form-horizontal" asp-action="Create" asp-controller="Product" method="POST">
+					<div class="create-form-list">
+						<div class="create-form-items">
+							<span class="name_create_lab"> CREATE NEW PRODUCTS</span>
+							<div class="form-group">
+								<label class="create-label">Tên sản phẩm </label>
+								<div class="col-md-9">
+									<input class="form-control" asp-for="TenSanPham" required />
+									<span asp-validation-for="TenSanPham" class="text-danger"></span>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="create-label">Mô tả</label>
+								<div class="col-md-9">
+									<input class="form-control" asp-for="Mota" required />
+									<span asp-validation-for="Mota" class="text-danger"></span>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="create-label">Link sản phẩm</label>
+								<div class="col-md-9">
+									<input class="form-control" asp-for="Link" required />
+									<span asp-validation-for="Link" class="text-danger"></span>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="create-label">Giá</label>
+								<div class="col-md-9">
+									<input class="form-control" asp-for="Gia" required />
+									<span asp-validation-for="Gia" class="text-danger"></span>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="create-label">Hình ảnh chính</label>
+								<input type="file" asp-for="Image1" class="form-control" />
+							</div>
+
+							<div class="form-group">
+								<label class="create-label">Hình ảnh 2</label>
+								<input type="file" asp-for="Image2" class="form-control" />
+								<span asp-validation-for="Image2" class="text-danger"></span>
+							</div>
+
+							<div class="form-group">
+								<label class="create-label">Hình ảnh 3</label>
+								<input type="file" asp-for="Image3" class="form-control" />
+								<span asp-validation-for="Image3" class="text-danger"></span>
+							</div>
+
+							<div class="form-group">
+								<label class="create-label">Loại </label>
+								<select asp-for="LoaiId" class="form-control_table" asp-items="ViewBag.Category"></select>
+							</div>
+
+							<div class="form-group">
+								<label class="create-label">Hãng </label>
+								<select asp-for="HangId" class="form-control_table" asp-items="ViewBag.Company"></select>
+							</div>
+
+							<div class="form-group">
+								<label class="create-label">Sale </label>
+								<select asp-for="SaleId" class="form-control_table" asp-items="ViewBag.Sale"></select>
+							</div>
+
+							<div class="form-group">
+								<label class="create-label">Kho </label>
+								<select asp-for="KhoId" class="form-control_table" asp-items="ViewBag.Warehouse"></select>
+							</div>
+							<div class="create-btn">
+								<button type="submit" class="btn btn-primary">Create</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+

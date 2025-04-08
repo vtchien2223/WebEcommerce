@@ -1,0 +1,72 @@
+﻿@model DoAnCoSoWeb.Models.Account
+
+<div class="info_list">
+    <div class="info_item">
+        <form asp-action="EditInfo" asp-controller="User" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <!-- Hiển thị ảnh đại diện hiện tại -->
+            <div class="info_avatar">
+                <h1 class="info_avatar">THÔNG TIN TÀI KHOẢN</h1>
+                <img src="~/image/@Model.AnhDaiDien" alt="Current Avatar" class="img_avatar" />
+            </div>
+
+            <!-- Đường dẫn đến ảnh đại diện -->
+            <div class="info_avatar">
+                 <input type="file" name="AnhDaiDienFile" id="AnhDaiDienFile_edit" />                     
+            </div>
+            <!-- Username -->
+            <div class="form-group">
+                <label class="col-md-3">Tên tài khoản</label>
+                <input asp-for="Username" class="form-control" readonly/>
+            </div>
+
+            <!-- Password -->
+            <div class="form-group">
+                <label class="col-md-3">Mật khẩu</label>
+                <input asp-for="MatKhau" class="form-control" readonly/>
+            </div>
+
+            <!-- Phone -->
+            <div class="form-group">
+                <label class="col-md-3">Số điện thoại</label>
+                <input asp-for="SoDienThoai" class="form-control" />
+            </div>
+
+            <!-- Email -->
+            <div class="form-group">
+                <label class="col-md-3">Email</label>
+                <input asp-for="Email" class="form-control" />
+            </div>
+            
+            <!-- Disred -->
+            <div class="form-group">
+                <label class="col-md-3">Địa chỉ</label>
+                <input asp-for="DiaChi" class="form-control" />
+            </div>
+
+ @*            <!-- Rank -->
+            <div class="form-group">
+                <label class="col-md-3">Loại tài khoản</label>
+                <input asp-for="Rank.TenRank" class="form-control" readonly />
+            </div> *@
+
+            <!-- Button submit -->
+            <div class="form-group">
+                <button type="submit" class="btn_capnhat_edit">Lưu</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    document.getElementById('AnhDaiDienFile_edit').onchange = function () {
+        var fileInput = this;
+        var avatarLink = document.querySelector('.avatar_link');
+
+        if (fileInput.value) {
+            avatarLink.style.display = 'block';
+        } else {
+            avatarLink.style.display = 'none';
+        }
+    };
+</script>

@@ -1,0 +1,55 @@
+﻿@model DoAnCoSoWeb.ViewModels.UserViewModels
+
+<div class="modals">
+    <div class="modal_body">
+        <h3 style="font-size: 40px;" class="auth-frm_header_name">ĐĂNG NHẬP</h3>
+        <div class="auth-frm_header"> 
+            <div>
+                <a href="trang-chu" class="btn-auth">Trở lại</a>
+            </div>
+            <div class="header_name">
+                <a href="dang-ky"><span class="btn-auth">Đăng ký</span></a>
+            </div>
+        </div>
+
+        @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+        {
+            <div class="alert alert-danger" role="alert">
+                @ViewBag.ErrorMessage
+            </div>
+        }
+
+        <form class="form form-horizontal" asp-action="Login" asp-controller="User" method="POST">
+            <div class="auth-frm_form">
+                <div class="auth-frm_group">
+                    <input type="text" class="auth-frm_in" asp-for="Register.Username" placeholder="Username" autofocus required />
+                    <span asp-validation-for="Register.Username" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="auth-frm_form">
+                <div class="auth-frm_group">
+                    <input type="password" class="auth-frm_in" asp-for="Register.MatKhau" id="password" placeholder="Password" />
+                    <span asp-validation-for="Register.MatKhau"></span>
+                </div>
+            </div>
+
+            <div class="auth-frm_control">
+                <button type="submit" class="btn btn-danger">Đăng nhập</button>
+            </div>
+        </form>
+        <div class="auth-frm_otside">
+            <div class="auth-frm_help">
+                <a href="" class="auth-frm_help-link auth-frm__help-forgot"><span class="auth-frm_help_name">Quên mật khẩu |</span></a>
+                <span class="auth-frm_help-separation"></span>
+                <a href="" class="auth-frm_help-link"><span class="auth-frm_help_name">Cần trợ giúp ?</span></a>
+            </div>
+        </div>
+        <div class="auth-frm_otside">
+            <p class="auth-frm_policy">
+                <a href="" class="auth-frm_policy-link">Đièu khoản dịch vụ</a> & <a href="" class="auth-frm__policy-link">Chính sách bảo mật</a>
+            </p>
+        </div>
+    </div>
+    
+</div>

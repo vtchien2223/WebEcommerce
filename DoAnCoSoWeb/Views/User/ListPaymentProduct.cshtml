@@ -1,0 +1,41 @@
+﻿@model DoAnCoSoWeb.ViewModels.CartViewModels
+
+<h1>List Payment Products</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th class="row_titile_name">ID</th>
+            <th class="row_titile_name" >Avatar</th>
+            <th class="row_titile_name" style="width: 120px;">Product Name</th>
+            <th class="row_titile_name">Quantity</th>
+            <th class="row_titile_name" style="width: 120px;">Total</th>
+            <th class="row_titile_name">Account Name</th>
+            <th class="row_titile_name" style="width: 120px;">Phone</th>
+            <th class="row_titile_name" style="width: 120px;">Address</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var payment in Model.chiTietHoaDons)
+        {
+            <tr>
+                <td class="row_show">@payment.Id</td>
+                <td>
+                    <img style="border-radius: 50%; wdith: 20px; height: 20px" src="/image/@Model.accounts.FirstOrDefault(a => a.Id == payment.AccountId)?.AnhDaiDien"/>
+                </td>
+                <td class="row_show">@Model.sanphams.FirstOrDefault(s => s.Id == payment.SanphamId)?.TenSanPham</td>
+                <td class="row_show">@payment.SoLuong</td>
+                <td class="row_show">@payment.ThanhTien</td>
+                <td class="row_show">@Model.accounts.FirstOrDefault(a => a.Id == payment.AccountId)?.Username</td>
+                <td class="row_show">@payment.Phone</td>
+                <td class="row_show">@payment.DiaChi</td>
+                <td class="row_show">
+                    <a>Edit</a>
+                    <a>Deleted</a>
+                    <a>Xác nhận</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

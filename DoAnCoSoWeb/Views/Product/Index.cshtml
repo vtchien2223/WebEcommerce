@@ -1,0 +1,136 @@
+﻿@model IEnumerable<DoAnCoSoWeb.Models.Sanpham>
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - DoAnCoSoWeb</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/fonts/fontawesome-free-6.5.2-web/css/all.css" />
+    <link rel="stylesheet" href="~/DoAnCoSoWeb.styles.css" asp-append-version="true" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            $('.list-item > a').click(function (e) {
+                e.preventDefault();
+                $(this).next('ul').slideToggle();
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container-admin">
+        <main class="Admin-home">
+            <nav class="menu-admin-home" id="admin">
+                <div class="title-menu-admin">
+                    <h1 class="title-admin">Quản Lý</h1>
+                </div>
+                <ul class="list">
+                    <li class="list-item">
+                        <a class="a-admin" href="#" title="Quản lý sản phẩm">
+                            Quản lý sản phẩm
+                        </a>
+                        <ul>
+                            <li><a class="mini-item" href="danh-sach-san-pham">Danh Sách Sản Phẩm</a></li>
+                            <li><a class="mini-item" href="them-san-pham">Thêm Sản Phẩm Mới</a></li>
+                        </ul>
+                    </li>
+                    <li class="list-item">
+                        <a class="a-admin" href="quan-ly-don-hangs" title="Quản lý đơn hàng">
+                            Quản lý đơn hàng
+                        </a>
+                        <ul>
+                            <li><a href="@Url.Action("ListPaymentProduct", "Product", new { type = "ram" })" class="category-items-link">Doanh Thu Năm</a></li>
+                        </ul>
+                    </li>
+                    <li class="list-item">
+                        <a class="a-admin" href="#" title="Quản lý danh mục">
+                            Quản lý danh mục
+                        </a>
+                        <ul>
+                            <li><a class="mini-item" href="danh-sach-loai-san-pham">Danh Sách Danh Mục</a></li>
+                            <li><a class="mini-item" href="them-loai-san-pham">Thêm Danh Mục Mới</a></li>
+                        </ul>
+                    </li>
+                    <li class="list-item">
+                        <a class="a-admin" href="#" title="Quản lý doanh thu">
+                            Quản lý doanh thu
+                        </a>
+                        <ul>
+                            @* <li><a class="mini-item" href="#">Doanh Thu Tháng</a></li> *@
+                            <li><a href="@Url.Action("MonthlyRevenue", "User", new { type = "ram" })" class="category-items-link">Doanh Thu Tháng</a></li>
+                            <li><a href="@Url.Action("YearRevenue", "User", new { type = "ram" })" class="category-items-link">Doanh Thu Năm</a></li>
+                        </ul>
+                    </li>
+                    <li class="list-item">
+                        <a class="a-admin" href="#" title="Quản lý email liên hệ">
+                            Quản lý email liên hệ
+                        </a>
+                        <ul>
+                            <li><a class="mini-item" href="thongtin-lienhe">Doanh Thu Năm</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </main>
+        <div class="container-pagebody">
+            <div class="content-pagebody">
+                <div class="page-header">
+                    <h3 class="page-title">Trang Quản Trị</h3>
+                </div>
+
+                <h1>Danh Sách Sản Phẩm</h1>
+                <table class="table ">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Tên</th>
+                            <th>Giá</th>
+                            <th>Mô tả</th>
+                            <th>Hình ảnh 1</th>
+                            <th>Hình ảnh 2</th>
+                            <th>Hình ảnh 3</th>
+                            <th>Hãng</th>
+                            <th>Sale</th>
+                            <th>Kho</th>
+                            <th>Loại sản phẩm</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.TenSanPham)</td>
+                                <td>@item.Gia.ToString("#,##0") VND</td>
+                                <td>@Html.DisplayFor(modelItem => item.Mota)</td>
+                                <td><img src="~/image/@item.Image1" style="max-width: 100px;" /></td>
+                                <td><img src="~/image/@item.Image2" style="max-width: 100px;" /></td>
+                                <td><img src="~/image/@item.Image3" style="max-width: 100px;" /></td>
+                                <td>@Html.DisplayFor(modelItem => item.hang.TenHang)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Sale.Name)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Kho.TenKho)</td>
+                                <td>@Html.DisplayFor(modelItem => item.LoaiId)</td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

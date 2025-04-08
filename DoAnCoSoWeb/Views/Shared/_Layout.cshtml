@@ -1,0 +1,360 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - DoAnCoSoWeb</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/fonts/fontawesome-free-6.5.2-web/css/all.css" />
+    <link rel="stylesheet" href="~/DoAnCoSoWeb.styles.css" asp-append-version="true" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="site-header-top">
+            <div class="container-fluid">
+                <div class="box-content d-flex align-items-center justify-content-between">
+                    <div class="box-left d-flex flex-wrap align-items-center">
+                        <div class="hotline">
+                            <span>Hotline: <b>0968 *** **** - 097 *** ****</b> * Tư vấn build PC: <b>098******</b> *  Địa chỉ: CS1: <b>********** TP.Hồ Chí Minh</b> CS2: <b>*********** Hà Nội </b></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav class="header_navbar">
+            <ul class="header_navbar-list" style="margin-left: 20px;">
+                <li class="hearder_navbar-item">
+                    <span class="hearder_navbar-title">Social Network</span>
+                    <a href="https://www.facebook.com/profile.php?id=100071593765684&mibextid=LQQJ4d" class="header_navbar-icon-link">
+                        <i class="fa-brands fa-facebook"></i>
+                    </a>
+                    <a href="" class="header_navbar-icon-link">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                </li>
+            </ul>
+
+            <ul class="header_navbar-list">
+                <li class="header_navbar-item">
+                    <a href="thong-bao" class="header_navbar-item-link"><i class="fa-solid fa-bell"></i> Thông báo</a>
+                </li>
+
+                <li class="header_navbar-item">
+                    <a href="ho-tro" class="header_navbar-item-link"><i class="fa-solid fa-circle-info"></i> Hổ trợ</a>
+                </li>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    string username = User.Identity.Name;
+                    <li class="header_navbar-item header_navbar-user">
+                        <a href="#" onclick="redirectToLogout()"><i class="header_logou_icon fa-solid fa-right-from-bracket"></i> Đăng xuất</a>
+                    </li>
+                    <li class="header_navbar-item header_navbar-user">
+                        <a href="#" onclick="redirectToUserInfo()"><span class="header_navbar-user-name">@username</span></a>
+                    </li>                            
+                }
+                else
+                {
+                    <li class="header_navbar-item header_navbar-item-link-strong header_navbar-item-separation">
+                        <a href="#" class="header_navbar-item-link" onclick="redirectToRegister()">Đăng ký</a>
+                    </li>
+                    <!-- Đăng nhập -->
+                    <li class="header_navbar-item header_navbar-item-link-strong">
+                        <a href="#" class="header_navbar-item-link" onclick="redirectToLogin()">Đăng nhập</a>
+                    </li>                
+                }
+            </ul>
+        </nav>
+
+        <div class="header_navbar-two">
+            <div class="header_logo">
+                <a id="logo" href="/trang-chu">
+                    <img style="margin-left: 20px;" width="100px" height="40px" src="~/image/LogoWater.png" alt="" class="header_logo-image">
+                </a>
+            </div>
+
+            <div class="header_srch">
+                @await Html.PartialAsync("_Search")
+            </div>
+            <div class="header_cart">
+                <a href="#" id="cart-link"><i class="header_cart-icon fa-solid fa-cart-shopping"></i></a>
+            </div>
+        </div>
+        <div class="header-bottom">
+            <div class="container-header-bottom">
+                <div class="roww">
+                    <div class="col-lg-cus">
+                        <div class="sidebar-content">
+                            <div class="title-menu ">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" x="0" y="0" viewBox="0 0 60.123 60.123" style="enable-background:new 0 0 512 512" xml:space="preserve"><g><g xmlns="http://www.w3.org/2000/svg"><path d="M57.124,51.893H16.92c-1.657,0-3-1.343-3-3s1.343-3,3-3h40.203c1.657,0,3,1.343,3,3S58.781,51.893,57.124,51.893z"></path><path d="M57.124,33.062H16.92c-1.657,0-3-1.343-3-3s1.343-3,3-3h40.203c1.657,0,3,1.343,3,3   C60.124,31.719,58.781,33.062,57.124,33.062z"></path><path d="M57.124,14.231H16.92c-1.657,0-3-1.343-3-3s1.343-3,3-3h40.203c1.657,0,3,1.343,3,3S58.781,14.231,57.124,14.231z"></path><circle cx="4.029" cy="11.463" r="4.029"></circle><circle cx="4.029" cy="30.062" r="4.029"></circle><circle cx="4.029" cy="48.661" r="4.029"></circle></g></g></svg>
+                                <span>Danh mục sản phẩm</span>
+                            </div>
+                            <div class="sidebar-menu sidebar-menu--colum sidebar-menu--index">
+                                <div class="main-menu mainMenujs setHeight">
+                                    <ul class="link-list list-root" id="productList">
+                                        <li class="item submenu">
+                                            <a href="@Url.Action("RamProduct", "Home", new { type = "ram" })" class="category-items-link">Ram</a>
+                                        </li>
+                                        <li class="item">
+                                            <a href="@Url.Action("PcProduct", "Home", new { type = "pc" })" class="category-items-link">Laptop</a>
+                                        </li>
+                                        <li class="item submenu">
+                                            <a href="@Url.Action("LaptopProduct", "Home", new { type = "laptop" })" class="category-items-link">Pc</a>
+                                        </li>
+                                        <li class="item">
+                                            <a href="@Url.Action("LinhKiemProduct", "Home", new { type = "linhkien" })" class="category-items-link">Linh kiện</a>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                                <div class="site-overlay"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg d-lg-flex d-none justify-content-between align-items-center box-content">
+                        <div class="box-policy">
+                            <ul>
+                                <li class="box-item">
+                                    <div class="box-icon">
+                                        <img src="//theme.hstatic.net/1000288298/1001020793/14/header_03_policy_1_ico.png?v=434" alt="Đảm bảo chất lượng">
+                                    </div>
+                                    <div class="box-text">Đảm bảo chất lượng</div>
+                                </li>
+                                <li class="box-item">
+                                    <div class="box-icon">
+                                        <img src="//theme.hstatic.net/1000288298/1001020793/14/header_03_policy_2_ico.png?v=434" alt="Vận chuyển siêu tốc">
+                                    </div>
+                                    <div class="box-text">Vận chuyển siêu tốc</div>
+                                </li>
+                                <li class="box-item">
+                                    <div class="box-icon">
+                                        <img src="//theme.hstatic.net/1000288298/1001020793/14/header_03_policy_3_ico.png?v=434" alt="Build PC: 0835126115">
+                                    </div>
+                                    <div class="box-text">Build PC: 0835126115</div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    @RenderBody()
+    <footer class="mainFooter">
+        <div class="container-footer">
+            <div class="footer-top">
+                <div class="container-footer-top">
+                    <div class="box-cft">
+                        <div class="title-footertop">
+                            <h3>Đăng ký nhận bản tin</h3>
+                            <p> Để nhận các thông tin khuyến mãi đến từ chúng tôi</p>
+                        </div>
+                        <div class="form-footertop">
+                            <form asp-controller="Contact" asp-action="Create" method="post">
+                                <input name="form_type" type="hidden" value="customer" />
+                                <input name="utf8" type="hidden" value="✓">
+                                <div class="inputform-footer">
+                                    <input class="boxemail" required type="email" name="email" placeholder="Vui lòng nhập email của bạn....." aria-label="Email Address" />
+                                    <button type="submit" class="btn-inputform">ĐĂNG KÝ</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-center">
+                <div class="container-footcenter">
+                    <div class="row-confootcen">
+                        <div class="grid_column-3">
+                            <h3 class="footers_heading">Giới thiệu công ty</h3>
+                            <ul class="footers_list">
+                                <li class="footers_items">
+                                    <a class="footers_items_link" href=""><span class="footers_info">Thông tin công ty</span></a>
+                                </li>
+
+                                <li class="footers_items">
+                                    <a class="footers_items_link" href=""><span class="footers_info">Tuyển dụng</span></a>
+                                </li>
+
+                                <li class="footers_items">
+                                    <a class="footers_items_link" href=""><span class="footers_info">Gớp ý kiến, khiếu nại</span></a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="grid_column-3">
+                            <h3 class="footers_heading">Chính sách</h3>
+                            <ul class="footers_list">
+                                <li class="footers_items">
+                                    <a class="footers_items_link" href=""><span class="footers_info">Hướng dẫn mua trả góp</span></a>
+                                </li>
+
+                                <li class="footers_items">
+                                    <a class="footers_items_link" href=""><span class="footers_info">Phương thức vận chuyển</span></a>
+                                </li>
+
+                                <li class="footers_items">
+                                    <a class="footers_items_link" href=""><span class="footers_info">Hệ thống cửa hàng bán lẻ</span></a>
+                                </li>
+
+                                <li class="footers_items">
+                                    <a class="footers_items_link" href=""><span class="footers_info">Chính sách bán hàng</span></a>
+                                </li>
+
+                                <li class="footers_items">
+                                    <a class="footers_items_link" href=""><span class="footers_info">Chính sách bảo hành và đổi trả</span></a>
+                                </li>
+                                <li class="footers_items">
+                                    <a class="footers_items_link" href=""><span class="footers_info">Thanh toán</span></a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="grid_column-3">
+                            <h3 class="footers_heading">Tổng đài hổ trợ</h3>
+                            <ul class="footers_list">
+                                <li class="footers_items">
+                                    <span class="footers_info">Gọi mua: 1900 232 460 (7:30 - 22:00)</span>
+                                </li>
+
+                                <li class="footers_items">
+                                    <span class="footers_info">Khiếu nại: 1800.1062 (8:00 - 21:30)</span>
+                                </li>
+
+                                <li class="footers_items">
+                                    <span class="footers_info">Bảo hành: 1900 232 464 (8:00 - 21:00)</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="grid_column-3">
+                            <h3 class="footers_heading">Phương thức thanh toán</h3>
+                            <div class="payment-accept">
+
+                                <img class="first lazy loaded" src="//bizweb.dktcdn.net/100/386/607/themes/892751/assets/payment-1.png?1714203528691" data-src="//bizweb.dktcdn.net/100/386/607/themes/892751/assets/payment-1.png?1714203528691" alt="payment-1">
+
+
+                                <img class="lazy loaded" src="//bizweb.dktcdn.net/100/386/607/themes/892751/assets/payment-2.png?1714203528691" data-src="//bizweb.dktcdn.net/100/386/607/themes/892751/assets/payment-2.png?1714203528691" alt="payment-2">
+
+
+                                <img class="lazy loaded" src="//bizweb.dktcdn.net/100/386/607/themes/892751/assets/payment-3.png?1714203528691" data-src="//bizweb.dktcdn.net/100/386/607/themes/892751/assets/payment-3.png?1714203528691" alt="payment-3">
+
+
+                                <img class="lazy loaded" src="//bizweb.dktcdn.net/100/386/607/themes/892751/assets/payment-4.png?1714203528691" data-src="//bizweb.dktcdn.net/100/386/607/themes/892751/assets/payment-4.png?1714203528691" alt="payment-4">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    @await RenderSectionAsync("Scripts", required: false)
+
+    <script>
+        $('.header_cart').click(function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: '/Home/IsLoggedIn',
+                type: 'GET',
+                success: function (res) {
+                    if (res.status == true) {
+                        window.location.href = "/gio-hang";
+                    } else {
+                        swal({
+                            title: "Thông báo",
+                            text: "Vui lòng đăng nhập để tiếp tục",
+                            icon: "warning",
+                            button: "Đồng ý",
+                        }).then(function () {
+                            window.location.href = "/dang-nhap";
+                        });
+                    }
+                }
+            });
+        });
+    </script>
+    <script>
+        function openInNewTab(url) {
+            var win = window.open(url, '_blank');
+            win.focus();
+        }
+    </script>
+    <script>
+        $(document).ready(function () {
+            // Ẩn các phần tử trong danh sách sản phẩm khi trang được tải
+            $('#productList').children().hide();
+
+            // Thêm sự kiện click cho thẻ span
+            $('.title-menu span').click(function () {
+                $('#productList').children().toggle(); // Hiển thị/ẩn các phần tử khi nhấn vào span
+            });
+        });
+
+
+    </script>
+
+    <script>
+        $('.header_cart').click(function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: '/Home/IsLoggedIn',
+                type: 'GET',
+                success: function (res) {
+                    if (res.status == true) {
+                        window.location.href = "/gio-hang";
+                    } else {
+                        swal({
+                            title: "Thông báo",
+                            text: "Vui lòng đăng nhập để tiếp tục",
+                            icon: "warning",
+                            button: "Đồng ý",
+                        }).then(function () {
+                            window.location.href = "/dang-nhap";
+                        });
+                    }
+                }
+            });
+        });
+    </script>
+
+
+    <script>
+        document.getElementById('logo').addEventListener('click', function () {
+            window.location.href = '/trang-chu';
+        });
+    </script>
+
+    <script>
+        // Hàm chuyển hướng đến trang đăng ký
+        function redirectToRegister() {
+            window.location.href = "/dang-ky"; // Thay đổi đường dẫn URL tương ứng với trang đăng ký
+        }
+
+        // Hàm chuyển hướng đến trang đăng nhập
+        function redirectToLogin() {
+            window.location.href = "/dang-nhap"; // Thay đổi đường dẫn URL tương ứng với trang đăng nhập
+        }
+
+        // Hàm chuyển hướng đến trang Thông báo
+        function redirectToNotification() {
+            window.location.href = "/thong-bao"; // Thay đổi đường dẫn URL tương ứng với trang Thông báo
+        }
+
+        // Hàm chuyển hướng đến trang Hỗ trợ
+        function redirectToSupport() {
+            window.location.href = "/ho-tro"; // Thay đổi đường dẫn URL tương ứng với trang Hỗ trợ
+        }
+
+        // Hàm chuyển hướng đến trang Đăng xuất
+        function redirectToLogout() {
+            window.location.href = "/dang-xuat"; // Thay đổi đường dẫn URL tương ứng với trang Đăng xuất
+        }
+
+        // Hàm chuyển hướng đến trang Thông tin người dùng
+        function redirectToUserInfo() {
+            window.location.href = "/thong-tin"; // Thay đổi đường dẫn URL tương ứng với trang Thông tin người dùng
+        }
+
+    </script>
+</body>
+</html> 

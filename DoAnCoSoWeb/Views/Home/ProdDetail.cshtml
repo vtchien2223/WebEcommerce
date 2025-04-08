@@ -1,0 +1,208 @@
+﻿@model DoAnCoSoWeb.ViewModels.HomeViewModels
+
+<!-- Hiển thị thông tin sản phẩm -->
+<div class="titile_ct_product">
+    <h1 >CHI TIẾT SẢN PHẨM</h1>
+</div>
+<div class="row">
+    <div class="col-md-6_main">
+        <!-- Hiển thị hình ảnh sản phẩm -->
+        <div class="rows">
+            <div class="col-md-12 text-center">
+                <img style="width: 492.67px; height: 240px;" id="mainImage" src="~/image/@Model.sanphams.FirstOrDefault()?.Image1" alt="Main Image" class="img-responsive main-image">
+            </div>
+        </div>
+        <!-- Hiển thị các hình ảnh thumbnail -->
+        <div class="rows">
+            <div class="col-md-6_1 ">
+                <img style="width: 245px; height: 120px;" src="~/image/@Model.sanphams.FirstOrDefault()?.Image2" alt="Thumbnail 1" class="img-responsive thumbnail" onclick="changeImage(this)">
+            </div>
+            <div class="col-md-6_2">
+                <img style="width: 245px; height: 120px;" src="~/image/@Model.sanphams.FirstOrDefault()?.Image3" alt="Thumbnail 2" class="img-responsive thumbnail" onclick="changeImage(this)">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6_content">
+        <!-- Hiển thị thông tin sản phẩm -->
+        <h2>@Model.sanphams.FirstOrDefault()?.TenSanPham</h2>
+        <h4>Giá gốc: <strike style="color:red;">@string.Format("{0:N0}", (float)Model.sanphams.FirstOrDefault()?.Gia * 1.5) VNĐ</strike></h4>
+        <h4>Giá giảm sốc: <i style="font-weight: bold; color:green;">@string.Format("{0:N0}", (float)Model.sanphams.FirstOrDefault()?.Gia) VNĐ</i></h4>
+        <!-- Hiển thị các lựa chọn sản phẩm -->
+        <form class="form-horizontal">            
+            <div class="form-group">
+                <div class="col-md-offset-4 col-md-8">
+                    <!-- Button mua sản phẩm -->
+                    <a class="btn btn-danger btn-buy-now" href="/them-gio-hang?ProductId=@Model.sanphams.FirstOrDefault()?.Id&Quantity=1">
+                        Mua ngay
+                    </a>
+                </div>
+            </div>
+        </form>     
+    </div>
+</div>
+
+<div class="rod">
+    <h4 style="font-size: 20px;">Thông tin sản phẩm : </h4>
+    <span class="mo-ta">
+        @Html.Raw(Model.sanphams.FirstOrDefault()?.Mota)
+    </span>
+</div>
+
+
+
+<div class="rod">
+    <h2>Bình luận</h2>
+    <div id="commentList">
+        <ul>      
+            @foreach (var comment in Model.Comments)
+            {
+                <div class="comment_header">
+                    <div class="comment_info">
+                        <img width="20px" style="border-radius: 50%" src="~/image/@comment.Account.AnhDaiDien" class="comment_avatar">
+                        <span class="comment_username">@comment.Account?.Username</span>                  
+                        <span class="comment_status" data-status="@comment.Tinhtrangcomment?.Id">
+                            <i class="status-icon"></i> @comment.Tinhtrangcomment?.Name
+                        </span>
+                    </div>
+                    <div class="comment_time">
+                        <span class="comment-time">@comment.NgayComment</span>
+                    </div>
+                </div>
+                <li style="list-style: none">
+                    <div class="comment_container">
+                        <div class="comment-content">
+                            @comment.Note
+                        </div>
+                    </div>
+                </li>
+            }
+
+        </ul>
+    </div>  
+</div>
+
+<div class="pagination">
+    @if (Model.CurrentPage > 1)
+    {
+        <a href="?page=@(Model.CurrentPage - 1)">Trang trước</a>
+    }
+
+    @for (int i = 1; i <= Model.TotalPages; i++)
+    {
+        <a href="?page=@i" class="@(Model.CurrentPage == i ? "active" : "")">@i</a>
+    }
+
+    @if (Model.CurrentPage < Model.TotalPages)
+    {
+        <a href="?page=@(Model.CurrentPage + 1)">Trang sau</a>
+    }
+</div>
+
+<form id="commentForm" asp-action="AddComment" asp-controller="Home" method="post">
+    <div class="comment_end">
+        <div class="comment_area">
+            <input type="hidden" name="productId" value="@Model.sanphams.FirstOrDefault()?.Id" />
+            <textarea name="note" id="commentNote" rows="6" cols="160" maxlength="500" required placeholder="Vui lòng nhập thông tin"></textarea>
+            <div id="errorArea" class="error-message"></div>
+        </div>
+        <div class="comment_action">
+            <button type="submit"><i class="fa-regular fa-paper-plane"></i>Gửi</button>
+        </div>
+    </div>
+</form>
+
+<style>
+    .pagination {
+        display: flex;
+        justify-content: center; 
+        margin-top: 20px; 
+    }
+
+        .pagination a {
+            margin: 0 5px; 
+            text-decoration: none;
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+            .pagination a.active {
+                font-weight: bold;
+                background-color: #007bff;
+                color: white;
+            }
+
+    .comment_area {
+        display: flex;
+        justify-content: flex-end; /* Đưa nội dung sang phải */
+        margin-top: 20px; /* Khoảng cách từ trên xuống */
+    }
+
+    .comment_area textarea {
+            width: 60%; /* Định rộng của textarea */
+            margin-right: 10px; /* Khoảng cách với button */
+        }
+
+    .comment_end{
+        display: flex;
+    }
+
+    .comment_action{
+        margin-top: 20px;
+    }
+
+</style>
+
+
+@section scripts {
+    <script>
+
+        $(document).ready(function () {
+            $('form').submit(function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url: $(this).attr('action'),
+                    type: $(this).attr('method'),
+                    data: $(this).serialize(),
+                    success: function (data) {
+                        if (data.success) {
+                            // Nếu comment được thêm thành công, reload lại trang
+                            location.reload();
+                        } else {
+                            console.log('Có lỗi xảy ra khi thêm comment.');
+                        }
+                    }
+                });
+            });
+        });
+
+    </script>
+
+
+    <script>
+        function changeImage(img) {
+            var mainImage = document.getElementById('mainImage');
+            var tempSrc = mainImage.src;
+            mainImage.src = img.src;
+            img.src = tempSrc;
+        }
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var commentStatusElements = document.querySelectorAll(".comment_status");
+            commentStatusElements.forEach(function (element) {
+                var status = element.dataset.status;
+                var iconElement = element.querySelector('.status-icon');
+                if (status === "1") {
+                    iconElement.classList.add("fa-solid", "fa-circle-check");
+                    element.style.color = "#28a745";
+                } else if (status === "2") {
+                    iconElement.classList.add("fa-solid", "fa-circle-xmark");
+                    element.style.color = "#dc3545";
+                }
+            });
+        });
+    </script>
+
+}

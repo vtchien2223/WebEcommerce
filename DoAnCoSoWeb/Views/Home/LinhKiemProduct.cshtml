@@ -1,0 +1,201 @@
+﻿@model DoAnCoSoWeb.ViewModels.HomeViewModels
+
+<div class="grid">
+    <div class="grid_row content">
+        <div class="grid_column-2">
+            <div style="margin-left: 10px;" class="sort_product">
+                <div class="search_min_form_max">
+                    <h4>Lọc theo khoản giá</h4>
+                    <form method="get" action="@Url.Action("LinhKiemProduct", "Home")">
+                        <div>
+                            <span class="Home-product-lab">Sắp xếp theo</span>
+
+                            <!-- Sử dụng nút "Mua nhiều nhất" thay vì thẻ <a> -->
+
+                            <div class="select-in">
+                                <span class="select-in-lab">Giá</span>
+                                <i class="select-in_icon fas fa-angle-down"></i>
+                                <ul class="select-in_icon-list">
+                                    <li class="select-in_icon-items">
+                                        <a href="javascript:void(0)" class="select-in_icon-link" onclick="sortPrice('lowToHigh')">Giá : Thấp đến cao</a>
+                                    </li>
+                                    <li class="select-in_icon-items">
+                                        <a href="javascript:void(0)" class="select-in_icon-link" onclick="sortPrice('highToLow')">Giá : Cao đến thấp</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+
+                        <div style="margin-bottom: 10px;" class="price-filter_titile">
+                            <div>
+                                <label for="minPrice">Giá thấp nhất:</label>
+                                <input type="number" id="minPrice" name="minPrice" value="@Model.MinPrice" step="0.01">
+                            </div>
+                            <div>
+                                <label for="maxPrice">Giá cao nhất:</label>
+                                <input type="number" id="maxPrice" name="maxPrice" value="@Model.MaxPrice" step="0.01">
+                            </div>
+
+                        </div>
+
+                        <div class="search_hang">
+                            <div class="price-filter_space">
+                                <input type="checkbox" class="price-range" id="lessThan5tr" value="0-5000000" />
+                                <span class="price_less_than_5tr">Dưới 5.000.000</span>
+                            </div>
+                            <div>
+                                <input type="checkbox" class="price-range" id="between5trAnd10tr" value="5000000-10000000" />
+                                <span class="price_5tr_form_10tr">5.000.000 - 10.000.000</span>
+                            </div>
+                            <div>
+                                <input type="checkbox" class="price-range" id="between10trAnd15tr" value="10000000-15000000" />
+                                <span class="price_10tr_form_15tr">10.000.00 - 15.000.000</span>
+                            </div>
+                            <div>
+                                <input type="checkbox" class="price-range" id="between15trAnd20tr" value="15000000-20000000" />
+                                <span class="price_15tr_form_20tr">15.000.000 - 20.000.000</span>
+                            </div>
+                            <div>
+                                <input type="checkbox" class="price-range" id="moreThan20tr" value="20000000-" />
+                                <span class="price_than_20tr">Trên 20.000.000</span>
+                            </div>
+                        </div>
+
+                        <div class="search_hang">
+                            <h4>Hãng</h4>
+                            @foreach (var hang in Model.hangs)
+                            {
+                                <div>
+                                    <input type="checkbox" name="hangIds" value="@hang.Id"
+                                    @(Model.SelectedHangIds != null && Model.SelectedHangIds.Contains(hang.Id) ? "checked" : "") />
+                                    <span>@hang.TenHang</span>
+                                </div>
+                            }
+                        </div>
+                        @* <button type="submit" name="sortOrder" value="mostSold">Mua nhiều nhất</button> *@
+                        <input type="checkbox" name="sortOrder" value="mostSold" id="mostSoldCheckbox">
+                        <label for="mostSoldCheckbox">Mua nhiều nhất</label>
+
+                        <div class="price-filter_btn">
+                            <button type="submit">Lọc</button>
+                            <button type="button" id="resetBtn">Reset</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid_column-10">
+            <div class="product">
+                <div>
+                    <span>Có</span>
+                    <span style="color: red;" class="title-count"><b>@Model.sanphams.Count()</b></span>
+                    <span>sản phẩm</span>
+                </div>
+                <div class="product">
+                    <div class="grid_rows">
+                        @foreach (var item in Model.sanphams)
+                        {
+                            <div class="grid_column-2_4">
+                                <!-- Updated CSS class -->
+                                <div class="product-item">
+                                    <img width="100%" height="150px" src="~/image/@item.Image1" class="product-item_image">
+                                    <h4 class="product-item_name">@item.TenSanPham</h4>
+                                    <div class="product-item_price">
+                                        <span class="product-item_price-old">@string.Format("{0:N0}", (float)item.Gia * 1.5) VNĐ</span>
+                                        <span class="product-item_price-sale">@string.Format("{0:N0}", item.Gia) VNĐ</span>
+                                    </div>
+                                    <div class="product-item_action">
+                                        <a href="/san-pham/@item.Id" class="btn-info">
+                                            <i class="btn-info-icon fa fa-rocket"></i> Chi tiết
+                                        </a>
+                                    </div>
+                                    <div class="product-item_sl"><span class="product-item_sl-name">Đã bán @Model.soldQuantities.GetValueOrDefault(item.Id, 0)</span></div>
+                                    <div class="product-item_saleoff">
+                                        <span class="product-item_sale-persents">10%</span>
+                                        <span class="product-item_sale-lab">GIẢM</span>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    function sortPrice(sortOrder) {
+        var url = '@Url.Action("LinhKiemProduct", "Home")';
+        var params = new URLSearchParams(window.location.search);
+        params.set('sortOrder', sortOrder);
+
+        // Lấy giá trị minPrice và maxPrice từ các checkbox và gán vào input ẩn
+        var minPrice = document.getElementById('minPrice').value;
+        var maxPrice = document.getElementById('maxPrice').value;
+
+        params.set('minPrice', minPrice);
+        params.set('maxPrice', maxPrice);
+
+        window.location.href = url + '?' + params.toString();
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const priceCheckboxes = document.querySelectorAll('.price-range');
+        const minPriceInput = document.getElementById('minPrice');
+        const maxPriceInput = document.getElementById('maxPrice');
+        const resetBtn = document.getElementById('resetBtn');
+        const hangCheckboxes = document.querySelectorAll('input[name="hangIds"]');
+
+        priceCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function () {
+                if (this.checked) {
+                    const [min, max] = this.value.split('-');
+                    minPriceInput.value = min ? parseFloat(min) : '';
+                    maxPriceInput.value = max ? parseFloat(max) : '';
+                    priceCheckboxes.forEach(cb => {
+                        if (cb !== this) cb.checked = false;
+                    });
+                } else {
+                    minPriceInput.value = '';
+                    maxPriceInput.value = '';
+                }
+            });
+        });
+
+        minPriceInput.addEventListener('input', () => {
+            priceCheckboxes.forEach(cb => cb.checked = false);
+        });
+
+        maxPriceInput.addEventListener('input', () => {
+            priceCheckboxes.forEach(cb => cb.checked = false);
+        });
+
+        resetBtn.addEventListener('click', () => {
+            minPriceInput.value = '';
+            maxPriceInput.value = '';
+            priceCheckboxes.forEach(cb => cb.checked = false);
+            hangCheckboxes.forEach(cb => cb.checked = false);
+            window.location.href = '@Url.Action("LinhKiemProduct", "Home")';
+        });
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const mostSoldCheckbox = document.getElementById('mostSoldCheckbox');
+        mostSoldCheckbox.addEventListener('change', function () {
+            const isChecked = mostSoldCheckbox.checked;
+            if (isChecked) {
+                // Nếu checkbox được chọn, thêm class "checked" để thay đổi giao diện
+                mostSoldCheckbox.parentElement.classList.add('checked');
+            } else {
+                // Nếu checkbox không được chọn, loại bỏ class "checked"
+                mostSoldCheckbox.parentElement.classList.remove('checked');
+            }
+        });
+    });
+</script>

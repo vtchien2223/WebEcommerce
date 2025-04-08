@@ -1,0 +1,112 @@
+﻿@model DoAnCoSoWeb.ViewModels.UserViewModels
+
+@* <div class="form-group">
+    <div class="modals">
+        <div class="modal__overlayouts"></div>
+        <div class="modal__bodys">
+            <div class="auth-frms">
+                <div class="auth-frm__containers">
+                    <div class="auth-frm__headers">
+                        <h3 class="auth-frm__heading">Đăng ký</h3>
+                        <div>
+                            <a href="trang-chu" class="btn auth-frm__control-bck btn-normal">Trở lại</a>
+                            <a href="dang-nhap"> <span class="auth-frm__switch-btn">Đăng nhập</span></a>
+                        </div>
+                    </div>
+
+                    <form class="form form-horizontal" asp-action="Register" asp-controller="User" method="POST">
+                        <div class="auth-frm__group">
+                            <input type="text" class="auth-frm__in" name="Register.Username" placeholder="Tên đăng nhập">
+                        </div>
+
+                        <div class="auth-frm__group">
+                            <input type="password" class="auth-frm__in" name="Register.MatKhau" placeholder="Mật khẩu" required
+                                   pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                                   title="Mật khẩu phải có ít nhất 8 ký tự, bao gồm ít nhất một chữ số, một chữ thường và một chữ hoa." />
+                            <span asp-validation-for="Register.MatKhau" class="text-danger"></span>
+                        </div>
+
+                        <div class="auth-frm__group">
+                            <input type="password" class="auth-frm__in" name="Register.ConfirmPassword" placeholder="Xác nhận mật khẩu" required
+                                   pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                                   title="Mật khẩu phải có ít nhất 8 ký tự, bao gồm ít nhất một chữ số, một chữ thường và một chữ hoa."
+                                   oninput="checkPasswordMatch(this);" />
+                            <div id="passwordMatchMessage"></div>
+                        </div>
+
+                        <div class="auth-frm__control">
+                            <button type="submit" class="btn btn--primary">Đăng ký</button>
+                        </div>
+                    </form>
+
+                    <div class="auth-frm__otside">
+                        <p class="auth-frm__policy">
+                            <a href="" class="auth-frm__policy-link">Đièu khoản dịch vụ</a> & <a href="" class="auth-frm__policy-link">Chính sách bảo mật</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> *@
+
+
+
+<div class="modals">
+    <div class="modal_body">
+        <h3 style="font-size: 40px;" class="auth-frm_header_name">ĐĂNG KÝ<h3>
+                <div class="auth-frm_header">
+                    <div>
+                        <a href="trang-chu" class="btn-auth">Trở lại</a>
+                    </div>
+                    <div class="header_name">
+                        <a href="dang-nhap"> <span class="btn-auth">Đăng nhập</span></a>
+                    </div>
+                </div>
+
+                <form class="form form-horizontal" asp-action="Register" asp-controller="User" method="POST">
+                    <div class="auth-frm_group">
+                        <input type="text" class="auth-frm_in" name="Register.Username" placeholder="Tên đăng nhập">
+                    </div>
+
+                    <div class="auth-frm_group">
+                        <input type="password" class="auth-frm_in" name="Register.MatKhau" placeholder="Mật khẩu" required
+                               pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                               title="Mật khẩu phải có ít nhất 8 ký tự, bao gồm ít nhất một chữ số, một chữ thường và một chữ hoa." />
+                        <span asp-validation-for="Register.MatKhau" class="text-danger"></span>
+                    </div>
+
+                    <div class="auth-frm_group">
+                        <input type="password" class="auth-frm_in" name="Register.ConfirmPassword" placeholder="Xác nhận mật khẩu" required
+                               pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                               title="Mật khẩu phải có ít nhất 8 ký tự, bao gồm ít nhất một chữ số, một chữ thường và một chữ hoa."
+                               oninput="checkPasswordMatch(this);" />
+                        <div id="passwordMatchMessage"></div>
+                    </div>
+
+                    <div class="auth-frm__control">
+                        <button style="margin-right: 100px;" type="submit" class="btn btn--primary">Đăng ký</button>
+                    </div>
+                </form>
+                <div class="auth-frm_otside">
+                    <p class="auth-frm_policy">
+                        <a href="" class="auth-frm_policy-link">Điều khoản dịch vụ</a> & <a href="" class="auth-frm__policy-link">Chính sách bảo mật</a>
+                    </p>
+                </div>
+    </div>
+
+</div>
+
+@section scripts {
+    <script>
+        function checkPasswordMatch(input) {
+            var passwordInput = document.getElementById('password');
+            var confirmPasswordInput = input;
+            if (passwordInput.value !== confirmPasswordInput.value) {
+                confirmPasswordInput.setCustomValidity('Mật khẩu không khớp');
+            } else {
+                confirmPasswordInput.setCustomValidity('');
+            }
+        }
+    </script>
+}
